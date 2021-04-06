@@ -1,22 +1,23 @@
 /**
  * Ant Design Pro v4 use `@ant-design/pro-layout` to handle Layout.
- * You can view component api by:
- * https://github.com/ant-design/ant-design-pro-layout
+ *
+ * @see You can view component api by: https://github.com/ant-design/ant-design-pro-layout
  */
-import ProLayout, {
+import type {
   MenuDataItem,
   BasicLayoutProps as ProLayoutProps,
   Settings,
-  DefaultFooter,
 } from '@ant-design/pro-layout';
-import React, { useEffect } from 'react';
-import { Link, useIntl, connect, Dispatch, history } from 'umi';
+import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
+import React, { useEffect, useMemo, useRef } from 'react';
+import type { Dispatch } from 'umi';
+import { Link, useIntl, connect, history } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
-import { ConnectState } from '@/models/connect';
-import { getAuthorityFromRouter } from '@/utils/utils';
+import type { ConnectState } from '@/models/connect';
+import { getMatchMenu } from '@umijs/route-utils';
 import logo from '../assets/logo.svg';
 
 const noMatch = (
@@ -31,24 +32,18 @@ const noMatch = (
     }
   />
 );
-export interface BasicLayoutProps extends ProLayoutProps {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
+export type BasicLayoutProps = {
+  breadcrumbNameMap: Record<string, MenuDataItem>;
   route: ProLayoutProps['route'] & {
     authority: string[];
   };
   settings: Settings;
   dispatch: Dispatch;
-}
+} & ProLayoutProps;
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
+  breadcrumbNameMap: Record<string, MenuDataItem>;
 };
-/**
- * use Authorized check all menu item
- */
+/** Use Authorized check all menu item */
 
 const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
   menuList.map((item) => {
@@ -61,7 +56,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} 蚂蚁金服体验技术部出品`}
+    copyright={`${new Date().getFullYear()} 蚂蚁集团体验技术部出品`}
     links={[
       {
         key: 'Ant Design Pro',
@@ -94,9 +89,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       pathname: '/',
     },
   } = props;
-  /**
-   * constructor
-   */
+
+  const menuDataRef = useRef<MenuDataItem[]>([]);
 
   useEffect(() => {
     if (dispatch) {
@@ -105,9 +99,7 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
       });
     }
   }, []);
-  /**
-   * init variables
-   */
+  /** Init variables */
 
   const handleMenuCollapse = (payload: boolean): void => {
     if (dispatch) {
@@ -116,21 +108,32 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         payload,
       });
     }
-  }; // get children authority
-
-  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
-    authority: undefined,
   };
+  // get children authority
+  const authorized = useMemo(
+    () =>
+      getMatchMenu(location.pathname || '/', menuDataRef.current).pop() || {
+        authority: undefined,
+      },
+    [location.pathname],
+  );
+
   const { formatMessage } = useIntl();
 
   return (
     <ProLayout
       logo={logo}
       formatMessage={formatMessage}
+      {...props}
+      {...settings}
       onCollapse={handleMenuCollapse}
       onMenuHeaderClick={() => history.push('/')}
       menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl || !menuItemProps.path) {
+        if (
+          menuItemProps.isUrl ||
+          !menuItemProps.path ||
+          location.pathname === menuItemProps.path
+        ) {
           return defaultDom;
         }
         return <Link to={menuItemProps.path}>{defaultDom}</Link>;
@@ -150,11 +153,22 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
           <span>{route.breadcrumbName}</span>
         );
       }}
-      footerRender={() => defaultFooterDom}
+      footerRender={() => {
+        if (settings.footerRender || settings.footerRender === undefined) {
+          return defaultFooterDom;
+        }
+        return null;
+      }}
       menuDataRender={menuDataRender}
       rightContentRender={() => <RightContent />}
-      {...props}
-      {...settings}
+      postMenuData={(menuData) => {
+        menuDataRef.current = menuData || [];
+        return menuData || [];
+      }}
+      waterMarkProps={{
+        content: 'Ant Design Pro',
+        fontColor: 'rgba(24,144,255,0.15)',
+      }}
     >
       <Authorized authority={authorized!.authority} noMatch={noMatch}>
         {children}
