@@ -80,6 +80,18 @@ const defaultFooterDom = (
         href: 'https://ant.design',
         blankTarget: true,
       },
+      {
+        key: 'github-antd-pro-plus',
+        title: <GithubOutlined />,
+        href: 'https://github.com/itpretty/ant-design-pro/tree/plus',
+        blankTarget: true,
+      },
+      {
+        key: 'Ant Design Pro+',
+        title: 'Ant Design Pro+',
+        href: 'https://github.com/itpretty/ant-design-pro/blob/plus/README.md',
+        blankTarget: true,
+      },
     ]}
   />
 );

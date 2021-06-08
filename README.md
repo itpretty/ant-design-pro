@@ -2,8 +2,14 @@
 
 An extended version of Ant Deisgn Pro V4 integrated with many third-party libraries, components, utils and hands-on optimizations.
 
+## Pro+Dependencies
+
 - Formily: https://github.com/alibaba/formily
 - Route Tabs: https://github.com/theprimone/ant-design-pro-plus
+
+## Search
+
+- Search `pro+routeTabs` for all `Route Tabs` changes
 
 <br />
 
