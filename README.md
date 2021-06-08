@@ -1,3 +1,25 @@
+<h1 align="center">Ant Design Pro+</h1>
+
+An extended version of Ant Deisgn Pro V4 integrated with many third-party libraries, components, utils and hands-on optimizations.
+
+## Pro+Dependencies
+
+- Formily: https://github.com/alibaba/formily
+- Route Tabs: https://github.com/theprimone/ant-design-pro-plus
+
+## Search
+
+- Search `pro+routeTabs` for all `Route Tabs` changes
+
+<br />
+
+---
+
+<br />
+
+<h6 align="center">Below is the original README of Ant Design Pro V4</h6>
+<br />
+
 Language : 🇺🇸 | [🇨🇳](./README.zh-CN.md) | [🇷🇺](./README.ru-RU.md) | [🇹🇷](./README.tr-TR.md) | [🇯🇵](./README.ja-JP.md) | [🇫🇷](./README.fr-FR.md) | [🇵🇹](./README.pt-BR.md) | [🇸🇦](./README.ar-DZ.md)
 
 <h1 align="center">Ant Design Pro</h1>

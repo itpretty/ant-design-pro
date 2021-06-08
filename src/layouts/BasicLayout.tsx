@@ -20,6 +20,10 @@ import type { ConnectState } from '@/models/connect';
 import { getMatchMenu } from '@umijs/route-utils';
 import logo from '../assets/logo.svg';
 
+// pro+routeTabs
+import RouteTabsLayout from './RouteTabsLayout';
+import styles from './BasicLayout.less';
+
 const noMatch = (
   <Result
     status={403}
@@ -76,6 +80,18 @@ const defaultFooterDom = (
         href: 'https://ant.design',
         blankTarget: true,
       },
+      {
+        key: 'github-antd-pro-plus',
+        title: <GithubOutlined />,
+        href: 'https://github.com/itpretty/ant-design-pro/tree/plus',
+        blankTarget: true,
+      },
+      {
+        key: 'Ant Design Pro+',
+        title: 'Ant Design Pro+',
+        href: 'https://github.com/itpretty/ant-design-pro/blob/plus/README.md',
+        blankTarget: true,
+      },
     ]}
   />
 );
@@ -122,6 +138,8 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
 
   return (
     <ProLayout
+      // pro+routeTabs
+      className={settings.routeTabs?.mode && styles.customByPageTabs}
       logo={logo}
       formatMessage={formatMessage}
       {...props}
@@ -166,12 +184,25 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
         return menuData || [];
       }}
       waterMarkProps={{
-        content: 'Ant Design Pro',
+        content: 'Ant Design Pro+',
         fontColor: 'rgba(24,144,255,0.15)',
       }}
+      siderWidth={218}
     >
       <Authorized authority={authorized!.authority} noMatch={noMatch}>
-        {children}
+        {/* pro+routeTabs */}
+        {settings?.routeTabs ? (
+          <RouteTabsLayout
+            mode={settings?.routeTabs?.mode}
+            persistent={settings?.routeTabs?.persistent}
+            fixed={settings?.routeTabs?.fixed}
+            routes={props.route.routes!}
+          >
+            {children}
+          </RouteTabsLayout>
+        ) : (
+          children
+        )}
       </Authorized>
     </ProLayout>
   );

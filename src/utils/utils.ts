@@ -22,3 +22,6 @@ export const isAntDesignProOrDev = (): boolean => {
 };
 
 export const getPageQuery = () => parse(window.location.href.split('?')[1]);
+
+// pro+routeTabs
+export const isProductionEnv = process.env.NODE_ENV === 'production';

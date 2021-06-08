@@ -1,4 +1,5 @@
-﻿export default [
+﻿import routesplus from './routesplus';
+export default [
   {
     path: '/',
     component: '../layouts/BlankLayout',
@@ -55,6 +56,8 @@
                 path: '/list',
                 component: './TableList',
               },
+              // pro+:routes
+              ...routesplus,
               {
                 component: './404',
               },

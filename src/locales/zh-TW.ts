@@ -4,6 +4,8 @@ import menu from './zh-TW/menu';
 import pwa from './zh-TW/pwa';
 import settingDrawer from './zh-TW/settingDrawer';
 import settings from './zh-TW/settings';
+import formily from './zh-TW/formily';
+import pages from './zh-TW/pages';
 
 export default {
   'navBar.lang': '語言',
@@ -17,4 +19,6 @@ export default {
   ...settings,
   ...pwa,
   ...component,
+  ...formily,
+  ...pages,
 };
