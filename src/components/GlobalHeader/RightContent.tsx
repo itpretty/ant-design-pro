@@ -1,16 +1,23 @@
 import { Tooltip, Tag } from 'antd';
 import type { Settings as ProSettings } from '@ant-design/pro-layout';
-import { QuestionCircleOutlined } from '@ant-design/icons';
+import { ReloadOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import type { ConnectProps } from 'umi';
-import { connect, SelectLang } from 'umi';
+import { connect, SelectLang, useIntl } from 'umi';
 import type { ConnectState } from '@/models/connect';
 import Avatar from './AvatarDropdown';
 import HeaderSearch from '../HeaderSearch';
+
+// pro+routeTabs
+import { Mode } from '../RouteTabs';
 import styles from './index.less';
 
 export type GlobalHeaderRightProps = {
   theme?: ProSettings['navTheme'] | 'realDark';
+
+  // pro+routeTabs
+  routeTabsMode?: Mode;
+  routeTabsReloadable?: boolean;
 } & Partial<ConnectProps> &
   Partial<ProSettings>;
 
@@ -21,8 +28,12 @@ const ENVTagColor = {
 };
 
 const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
-  const { theme, layout } = props;
+  // pro+routeTabs
+  const { theme, layout, routeTabsMode, routeTabsReloadable } = props;
   let className = styles.right;
+
+  // pro+routeTabs
+  const { formatMessage } = useIntl();
 
   if (theme === 'dark' && layout === 'top') {
     className = `${styles.right}  ${styles.dark}`;
@@ -53,6 +64,20 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
         //   //console.log('input', value);
         // }}
       />
+      {/* pro+routeTabs */}
+      {routeTabsMode && routeTabsReloadable ? (
+        <Tooltip title={formatMessage({ id: 'component.globalHeader.reload' })}>
+          <a
+            style={{
+              color: 'inherit',
+            }}
+            className={styles.action}
+            onClick={() => window.reloadTab()}
+          >
+            <ReloadOutlined />
+          </a>
+        </Tooltip>
+      ) : null}
       <Tooltip title="使用文档">
         <a
           style={{
@@ -80,4 +105,8 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
 export default connect(({ settings }: ConnectState) => ({
   theme: settings.navTheme,
   layout: settings.layout,
+
+  // pro+routeTabs
+  routeTabsMode: settings?.routeTabs?.mode,
+  routeTabsReloadable: settings?.routeTabs?.reloadable,
 }))(GlobalHeaderRight);

@@ -57,7 +57,7 @@ export default [
                 component: './TableList',
               },
               // pro+:routes
-              { ...routesplus },
+              ...routesplus,
               {
                 component: './404',
               },
