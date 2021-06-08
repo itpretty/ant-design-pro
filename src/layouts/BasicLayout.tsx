@@ -3,11 +3,7 @@
  *
  * @see You can view component api by: https://github.com/ant-design/ant-design-pro-layout
  */
-import type {
-  MenuDataItem,
-  BasicLayoutProps as ProLayoutProps,
-  Settings,
-} from '@ant-design/pro-layout';
+import type { MenuDataItem, BasicLayoutProps as ProLayoutProps } from '@ant-design/pro-layout';
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect, useMemo, useRef } from 'react';
 import type { Dispatch } from 'umi';
@@ -21,6 +17,7 @@ import { getMatchMenu } from '@umijs/route-utils';
 import logo from '../assets/logo.svg';
 
 // pro+routeTabs
+import type { DefaultSettings } from '../../config/defaultSettings';
 import RouteTabsLayout from './RouteTabsLayout';
 import styles from './BasicLayout.less';
 
@@ -41,9 +38,11 @@ export type BasicLayoutProps = {
   route: ProLayoutProps['route'] & {
     authority: string[];
   };
-  settings: Settings;
+  settings: DefaultSettings;
   dispatch: Dispatch;
+  children: React.ReactElement;
 } & ProLayoutProps;
+
 export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
   breadcrumbNameMap: Record<string, MenuDataItem>;
 };

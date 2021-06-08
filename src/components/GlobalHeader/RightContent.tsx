@@ -14,7 +14,7 @@ import styles from './index.less';
 
 export type GlobalHeaderRightProps = {
   theme?: ProSettings['navTheme'] | 'realDark';
-
+  layout: ProSettings['layout'];
   // pro+routeTabs
   routeTabsMode?: Mode;
   routeTabsReloadable?: boolean;

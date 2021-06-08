@@ -17,7 +17,7 @@ export type RouteTabsOptions = {
   };
 };
 
-type DefaultSettings = Partial<ProSettings> & {
+export type DefaultSettings = Partial<ProSettings> & {
   pwa: boolean;
 
   // pro+routeTabs
@@ -48,7 +48,5 @@ const proSettings: DefaultSettings = {
     },
   },
 };
-
-export type { DefaultSettings };
 
 export default proSettings;

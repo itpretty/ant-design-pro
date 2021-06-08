@@ -44,7 +44,7 @@ function getRule(req: Request, res: Response, u: string) {
     ((current as number) - 1) * (pageSize as number),
     (current as number) * (pageSize as number),
   );
-  const sorter = JSON.parse(params.sorter as any);
+  const sorter = params.sorter && JSON.parse(params.sorter as any);
   if (sorter) {
     dataSource = dataSource.sort((prev, next) => {
       let sortNumber = 0;
