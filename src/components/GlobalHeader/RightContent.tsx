@@ -78,7 +78,7 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = (props) => {
           </a>
         </Tooltip>
       ) : null}
-      <Tooltip title="使用文档">
+      <Tooltip title="Use documentation">
         <a
           style={{
             color: 'inherit',
