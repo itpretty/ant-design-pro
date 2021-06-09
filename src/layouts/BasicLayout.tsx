@@ -59,7 +59,7 @@ const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
 
 const defaultFooterDom = (
   <DefaultFooter
-    copyright={`${new Date().getFullYear()} Produced by Ant Group Experience Technology Department`}
+    copyright={`${new Date().getFullYear()} Produced by Ant Group Experience Technology Department & HK01.com`}
     links={[
       {
         key: 'Ant Design Pro',
@@ -80,7 +80,7 @@ const defaultFooterDom = (
         blankTarget: true,
       },
       {
-        key: 'github-antd-pro-plus',
+        key: 'Ant Design Pro Plus',
         title: <GithubOutlined />,
         href: 'https://github.com/itpretty/ant-design-pro/tree/plus',
         blankTarget: true,
