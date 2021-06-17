@@ -1,4 +1,6 @@
-﻿export default [
+﻿import routesPlus from './routesPlus';
+
+export default [
   {
     path: '/user',
     layout: false,
@@ -49,4 +51,5 @@
   {
     component: './404',
   },
+  ...routesPlus,
 ];
