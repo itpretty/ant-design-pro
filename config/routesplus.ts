@@ -1,9 +1,10 @@
 ﻿// pro+routes
 export default [
+  // https://formilyjs.org/
   {
     path: '/formily',
     name: 'formily',
-    icon: 'edit',
+    icon: 'form',
     routes: [
       {
         path: '/formily/linked',
@@ -106,6 +107,25 @@ export default [
             component: './formily/layout/responsive',
           },
         ],
+      },
+    ],
+  },
+
+  // Editor
+  {
+    path: '/editor',
+    name: 'editor',
+    icon: 'edit',
+    routes: [
+      {
+        path: '/editor/markdown',
+        name: 'markdown',
+        component: './editor/markdown',
+      },
+      {
+        path: '/editor/braft',
+        name: 'braft',
+        component: './editor/braft',
       },
     ],
   },

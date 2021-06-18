@@ -44,4 +44,7 @@ export default defineConfig({
   fastRefresh: {},
   esbuild: {},
   webpack5: {},
+  sass: {
+    implementation: require('node-sass'),
+  },
 });

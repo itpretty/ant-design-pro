@@ -5,6 +5,7 @@ import pwa from './zh-TW/pwa';
 import settingDrawer from './zh-TW/settingDrawer';
 import settings from './zh-TW/settings';
 import formily from './zh-TW/formily';
+import plus from './zh-TW/plus';
 import pages from './zh-TW/pages';
 
 export default {
@@ -21,4 +22,5 @@ export default {
   ...component,
   ...formily,
   ...pages,
+  ...plus,
 };
