@@ -6,7 +6,7 @@
 
 - 表单引擎 Formily: https://github.com/alibaba/formily
 - 多页签 Route Tabs: https://github.com/theprimone/ant-design-pro-plus
-
+- CKEditor: https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/react.html
 - Markdown Editor: https://github.com/kkfor/for-editor
 - Braft Editor: https://github.com/margox/braft-editor
 

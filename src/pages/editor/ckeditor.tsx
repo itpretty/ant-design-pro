@@ -1,9 +1,10 @@
-// pro+editor:braft
-// https://github.com/margox/braft-editor
+// pro+editor:ckeditor5
+// https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/react.html
 import React, { useEffect } from 'react';
 import { Form, Input, Button, Row, Card } from 'antd';
-import BraftEditor from './component/braft';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const FormItem = Form.Item;
 
@@ -22,19 +23,18 @@ export default (): React.ReactNode => {
   }, [form]);
 
   const onFinish = (values) => {
-    const result = {
-      title: values.title,
-      content: typeof values.content === 'string' ? values.content : values.content.toHTML(),
-    };
-    console.log(result);
+    // const result = {
+    //   title: values.title,
+    //   content: typeof values.content === 'string' ? values.content : values.content.toHTML(),
+    // };
+    console.log(values);
   };
-
   return (
     <PageHeaderWrapper>
       <Card>
         <Form form={form} onFinish={onFinish}>
           <FormItem
-            name="title"
+            name="titleCKEditor"
             label="Title"
             rules={[{ required: true, message: 'Please enter title' }]}
           >
@@ -46,7 +46,7 @@ export default (): React.ReactNode => {
             />
           </FormItem>
           <FormItem
-            name="content"
+            name="contentCKEditor"
             label="Content"
             trigger="onBlur"
             validateTrigger="onBlur"
@@ -55,19 +55,38 @@ export default (): React.ReactNode => {
               // https://ant.design/components/form-cn/#components-form-demo-register
               () => ({
                 validator(_, value) {
-                  if (typeof value !== 'string') {
-                    var htmlObject = document.createElement('div');
-                    htmlObject.innerHTML = value?.toHTML();
-                    if (!htmlObject.innerText.match(/\S/)) {
-                      return Promise.reject(new Error('Please enter content'));
-                    }
+                  const htmlObject = document.createElement('div');
+                  htmlObject.innerHTML = value;
+                  if (!htmlObject.innerText.match(/\S/)) {
+                    return Promise.reject(new Error('Please enter content'));
                   }
                   return Promise.resolve();
                 },
               }),
             ]}
+            getValueFromEvent={(event, editor) => {
+              const data = editor.getData();
+              return data;
+            }}
           >
-            <BraftEditor placeholder="Please enter content" />
+            <CKEditor
+              editor={ClassicEditor}
+              data="<p>Hello from CKEditor 5!</p>"
+              onReady={(editor) => {
+                // You can store the "editor" and use when it is needed.
+                console.log('Editor is ready to use!', editor);
+              }}
+              onChange={(event, editor) => {
+                const data = editor.getData();
+                console.log({ event, editor, data });
+              }}
+              onBlur={(event, editor) => {
+                console.log('Blur.', editor);
+              }}
+              onFocus={(event, editor) => {
+                console.log('Focus.', editor);
+              }}
+            />
           </FormItem>
           <FormItem>
             <Row>
