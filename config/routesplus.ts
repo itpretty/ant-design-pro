@@ -118,14 +118,19 @@ export default [
     icon: 'edit',
     routes: [
       {
-        path: '/editor/markdown',
-        name: 'markdown',
-        component: './editor/markdown',
+        path: '/editor/ckeditor',
+        name: 'ckeditor',
+        component: './editor/ckeditor',
       },
       {
         path: '/editor/braft',
         name: 'braft',
         component: './editor/braft',
+      },
+      {
+        path: '/editor/markdown',
+        name: 'markdown',
+        component: './editor/markdown',
       },
     ],
   },

@@ -11,6 +11,8 @@ export default function Braft(props) {
   return (
     <BraftEditor
       {...restProps}
+      className="ant-input"
+      style={{ padding: 0 }}
       value={BraftEditor.createEditorState(value)}
       onChange={onEditorChange}
     />

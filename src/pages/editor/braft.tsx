@@ -50,6 +50,7 @@ export default (): React.ReactNode => {
             label="Content"
             trigger="onBlur"
             validateTrigger="onBlur"
+            required
             rules={[
               // https://ant.design/components/form-cn/#components-form-demo-register
               () => ({
@@ -66,7 +67,7 @@ export default (): React.ReactNode => {
               }),
             ]}
           >
-            <BraftEditor className="ant-input" placeholder="Please enter content" />
+            <BraftEditor placeholder="Please enter content" />
           </FormItem>
           <FormItem>
             <Row>
