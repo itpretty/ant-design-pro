@@ -1,6 +1,6 @@
 // pro+editor:ckeditor5
 // https://ckeditor.com/docs/ckeditor5/latest/builds/guides/integration/frameworks/react.html
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, Row, Card } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -10,23 +10,9 @@ const FormItem = Form.Item;
 
 export default (): React.ReactNode => {
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      form.setFieldsValue({
-        content: '<p>Hello <b>Rich Text Editor!</b></p>',
-      });
-    }, 1000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [form]);
+  const [data, setData] = useState('<p>Hello from CKEditor 5!</p>');
 
   const onFinish = (values) => {
-    // const result = {
-    //   title: values.title,
-    //   content: typeof values.content === 'string' ? values.content : values.content.toHTML(),
-    // };
     console.log(values);
   };
   return (
@@ -51,6 +37,7 @@ export default (): React.ReactNode => {
             trigger="onBlur"
             validateTrigger="onBlur"
             required
+            initialValue={data}
             rules={[
               // https://ant.design/components/form-cn/#components-form-demo-register
               () => ({
@@ -71,7 +58,7 @@ export default (): React.ReactNode => {
           >
             <CKEditor
               editor={ClassicEditor}
-              data="<p>Hello from CKEditor 5!</p>"
+              data={data}
               onReady={(editor) => {
                 // You can store the "editor" and use when it is needed.
                 console.log('Editor is ready to use!', editor);
