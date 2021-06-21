@@ -130,7 +130,24 @@ export default [
       {
         path: '/editor/markdown',
         name: 'markdown',
-        component: './editor/markdown',
+        icon: 'file-markdown',
+        routes: [
+          {
+            path: '/editor/markdown/foreditor',
+            name: 'foreditor',
+            component: './editor/markdown/foreditor',
+          },
+          // {
+          //     path: '/editor/markdown/reactmarkdown',
+          //     name: 'reactmarkdown',
+          //     component: './editor/markdown/reactmarkdown',
+          // },
+          {
+            path: '/editor/markdown/richmarkdown',
+            name: 'richmarkdown',
+            component: './editor/markdown/richmarkdown',
+          },
+        ],
       },
     ],
   },
